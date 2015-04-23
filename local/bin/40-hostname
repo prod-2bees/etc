@@ -1,0 +1,3 @@
+#!/bin/sh
+/bin/hostname smtp.clouderg.com
+/bin/echo smtp.clouderg.com > /etc/hostname

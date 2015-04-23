@@ -1,0 +1,5 @@
+#!/bin/sh
+# show the ec2 meta data page upon login
+echo "============================== AWS DATA =============================="
+[ -f /usr/bin/ec2metadata ] && /usr/bin/ec2metadata
+echo "============================== AWS DATA =============================="

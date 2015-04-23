@@ -1,0 +1,33 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+/usr/local/bin/40-hostname 
+export HOSTNAME=`cat /etc/hostname`
+export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64/jre"
+export EC2_HOME=/opt/ec2-api-tools
+export EC2_INSTANCE_ID=`wget -q -O - http://169.254.169.254/latest/meta-data/instance-id || die \"wget instance-id has failed: $?\"`
+/opt/ec2-api-tools/bin/ec2-associate-address -i ${EC2_INSTANCE_ID} -a eipalloc-f69f6693 -O AKIAJLKHJCFGIIEGTMBA -W B3QHOD+O+I4UQ+0m+MxZLfMMtDf183yTLJeCaRC7 &
+
+MAILFILE=/var/log/boot.log
+mailalert(){
+/usr/sbin/sendmail -F admin@clouderg.com -it <<END_MESSAGE
+To: aggregate2014@gmail.com
+Subject: system boot ${HOSTNAME}
+
+$(cat $MAILFILE)
+END_MESSAGE
+}
+
+mailalert
+
+exit 0

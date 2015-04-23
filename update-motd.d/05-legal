@@ -1,0 +1,3 @@
+#!/bin/sh
+# show the legal page upon login
+[ -f /etc/legal ] && /bin/cat /etc/legal
