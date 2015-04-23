@@ -1,2 +1,4 @@
-tmp
+*.tgz
+*.gz
 *.out
+
