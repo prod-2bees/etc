@@ -21,19 +21,20 @@ server {
 	listen 80 default_server;
 	listen [::]:80 default_server ipv6only=on;
 
-	root /usr/share/nginx/html;
+	root /home/www/default;
 	index index.html index.htm;
 
-	# Make site accessible from http://localhost/
-	server_name localhost;
-
-	location / {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to displaying a 404.
-		try_files $uri $uri/ =404;
+	# Vitual site
+	server_name www.2Bees.com;
+    	location / {
 		# Uncomment to enable naxsi on this location
 		# include /etc/nginx/naxsi.rules
-	}
+        	proxy_set_header X-Real-IP $remote_addr;
+        	proxy_set_header HOST $http_host;
+        	proxy_set_header X-NginX-Proxy true;
+        	proxy_pass http://127.0.0.1:3000;
+        	proxy_redirect off;
+    	}
 
 	# Only for nginx-naxsi used with nginx-naxsi-ui : process denied requests
 	#location /RequestDenied {
@@ -56,9 +57,9 @@ server {
 	#	# NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
 	#
 	#	# With php5-cgi alone:
-fastcgi_pass unix:/var/run/php5-fpm.sock;
+#fastcgi_pass unix:/var/run/php5-fpm.sock;
 	#	# With php5-fpm:
-fastcgi_pass unix:/var/run/php5-fpm.sock;
+#fastcgi_pass unix:/var/run/php5-fpm.sock;
 	#	fastcgi_index index.php;
 	#	include fastcgi_params;
 	#}
