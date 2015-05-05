@@ -16,7 +16,7 @@ export HOSTNAME=`cat /etc/hostname`
 export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64/jre"
 export EC2_HOME=/opt/ec2-api-tools
 export EC2_INSTANCE_ID=`wget -q -O - http://169.254.169.254/latest/meta-data/instance-id || die \"wget instance-id has failed: $?\"`
-/opt/ec2-api-tools/bin/ec2-associate-address -i ${EC2_INSTANCE_ID} -a eipalloc-f69f6693 -O AKIAJLKHJCFGIIEGTMBA -W B3QHOD+O+I4UQ+0m+MxZLfMMtDf183yTLJeCaRC7 &
+/opt/ec2-api-tools/bin/ec2-associate-address -i ${EC2_INSTANCE_ID} -a eipalloc-f69f6693 -O XXXXXX -W YYYYY &
 
 MAILFILE=/var/log/boot.log
 mailalert(){
